@@ -1,0 +1,1166 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+.image-compressor-page {
+    background: #06111b;
+    color: #ffffff;
+    min-height: 100vh;
+    padding: 35px 5% 60px;
+    font-family: Arial, sans-serif;
+}
+
+.image-compressor-page * {
+    box-sizing: border-box;
+}
+
+.image-compressor-page button,
+.image-compressor-page input,
+.image-compressor-page select {
+    font: inherit;
+}
+
+
+/* ==============================
+   HERO SECTION
+============================== */
+
+.compressor-hero {
+    max-width: 850px;
+    margin: 0 auto 35px;
+    text-align: center;
+}
+
+.compressor-hero-icon {
+    width: 65px;
+    height: 65px;
+    margin: 0 auto 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 193, 7, 0.12);
+    border: 1px solid rgba(255, 193, 7, 0.25);
+    border-radius: 18px;
+    color: #ffc107;
+    font-size: 27px;
+}
+
+.compressor-label {
+    display: inline-block;
+    color: #ffc107;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+}
+
+.compressor-hero h1 {
+    color: #ffffff;
+    font-size: clamp(28px, 5vw, 43px);
+    line-height: 1.25;
+    margin: 0 0 15px;
+}
+
+.compressor-hero > p {
+    max-width: 650px;
+    margin: 0 auto 22px;
+    color: #a5b3bf;
+    font-size: 15px;
+    line-height: 1.8;
+}
+
+.compressor-hero-tags {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.compressor-hero-tags span {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 9px 13px;
+    background: #0d2132;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 30px;
+    color: #dce5ec;
+    font-size: 12px;
+}
+
+.compressor-hero-tags i {
+    color: #ffc107;
+}
+
+
+/* ==============================
+   MAIN CONTAINER
+============================== */
+
+.compressor-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 28px;
+    background: #091a29;
+    border: 1px solid #203548;
+    border-radius: 18px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+.compressor-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.compressor-heading h2 {
+    margin: 0 0 9px;
+    color: #ffffff;
+    font-size: 21px;
+}
+
+.compressor-heading h2 i {
+    color: #ffc107;
+    margin-right: 7px;
+}
+
+.compressor-heading p {
+    margin: 0;
+    color: #8494a1;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.compressor-badge {
+    flex-shrink: 0;
+    padding: 7px 10px;
+    background: rgba(36, 209, 143, 0.1);
+    border: 1px solid rgba(36, 209, 143, 0.25);
+    border-radius: 6px;
+    color: #24d18f;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+
+/* ==============================
+   UPLOAD AREA
+============================== */
+
+.compressor-upload-area {
+    padding: 35px 20px;
+    margin-bottom: 30px;
+    text-align: center;
+    background: #071521;
+    border: 2px dashed #304658;
+    border-radius: 13px;
+    transition: border-color 0.25s ease,
+                background 0.25s ease;
+}
+
+.compressor-upload-area:hover,
+.compressor-upload-area.drag-over {
+    border-color: #ffc107;
+    background: rgba(255, 193, 7, 0.035);
+}
+
+.compressor-upload-icon {
+    width: 62px;
+    height: 62px;
+    margin: 0 auto 17px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 193, 7, 0.1);
+    border-radius: 17px;
+    color: #ffc107;
+    font-size: 26px;
+}
+
+.compressor-upload-area h3 {
+    margin: 0 0 9px;
+    color: #ffffff;
+    font-size: 18px;
+}
+
+.compressor-upload-area > p {
+    margin: 0 0 20px;
+    color: #8494a1;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.compressor-upload-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    padding: 12px 20px;
+    background: #ffc107;
+    border: none;
+    border-radius: 8px;
+    color: #06111b;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s ease,
+                transform 0.2s ease;
+}
+
+.compressor-upload-btn:hover {
+    background: #ffd54f;
+    transform: translateY(-2px);
+}
+
+.compressor-file-types,
+.compressor-file-limit {
+    color: #718392;
+    font-size: 11px;
+    line-height: 1.7;
+}
+
+.compressor-file-types {
+    margin-top: 19px;
+}
+
+.compressor-file-limit {
+    margin-top: 4px;
+}
+
+
+/* ==============================
+   PREVIEW SECTIONS
+============================== */
+
+.compressor-preview-section,
+.compressor-result-section {
+    margin-bottom: 30px;
+}
+
+.compressor-preview-heading,
+.compressor-result-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 14px;
+}
+
+.compressor-preview-heading h3,
+.compressor-result-heading h3 {
+    margin: 0;
+    color: #ffffff;
+    font-size: 16px;
+}
+
+.compressor-preview-heading h3 i {
+    color: #ffc107;
+    margin-right: 7px;
+}
+
+.compressor-result-heading h3 i {
+    color: #24d18f;
+    margin-right: 7px;
+}
+
+.compressor-preview-heading > span,
+.compressor-result-heading > span {
+    color: #8494a1;
+    font-size: 11px;
+    text-align: right;
+}
+
+.compressor-image-preview,
+.compressor-result-preview {
+    position: relative;
+    min-height: 220px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background-color: #071521;
+    background-image:
+        linear-gradient(45deg, #0d2132 25%, transparent 25%),
+        linear-gradient(-45deg, #0d2132 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, #0d2132 75%),
+        linear-gradient(-45deg, transparent 75%, #0d2132 75%);
+    background-size: 22px 22px;
+    background-position:
+        0 0,
+        0 11px,
+        11px -11px,
+        -11px 0;
+    border: 1px solid #203548;
+    border-radius: 11px;
+}
+
+.compressor-image-preview img,
+.compressor-result-preview img {
+    display: block;
+    max-width: 100%;
+    max-height: 420px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: 5px;
+}
+
+.compressor-image-preview img[hidden],
+.compressor-result-preview img[hidden] {
+    display: none;
+}
+
+.compressor-empty-preview {
+    max-width: 300px;
+    padding: 20px;
+    text-align: center;
+}
+
+.compressor-empty-preview > i {
+    color: #405365;
+    font-size: 37px;
+    margin-bottom: 15px;
+}
+
+.compressor-empty-preview p {
+    color: #718392;
+    font-size: 12px;
+    line-height: 1.8;
+    margin: 0;
+}
+
+
+/* ==============================
+   IMAGE DETAILS
+============================== */
+
+.compressor-image-details {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 13px;
+}
+
+.compressor-image-details > div {
+    min-width: 0;
+    padding: 15px;
+    background: #0d2132;
+    border: 1px solid #203548;
+    border-radius: 9px;
+}
+
+.compressor-image-details span,
+.compressor-image-details strong {
+    display: block;
+    overflow-wrap: anywhere;
+}
+
+.compressor-image-details span {
+    color: #8494a1;
+    font-size: 11px;
+    margin-bottom: 9px;
+}
+
+.compressor-image-details strong {
+    color: #e8eef3;
+    font-size: 12px;
+}
+
+
+/* ==============================
+   COMPRESSION SETTINGS
+============================== */
+
+.compressor-settings {
+    padding: 23px;
+    margin-bottom: 30px;
+    background: #071521;
+    border: 1px solid #203548;
+    border-radius: 12px;
+}
+
+.compressor-settings-heading {
+    margin-bottom: 23px;
+}
+
+.compressor-settings-heading h3 {
+    color: #ffffff;
+    font-size: 16px;
+    margin: 0 0 9px;
+}
+
+.compressor-settings-heading h3 i {
+    color: #ffc107;
+    margin-right: 7px;
+}
+
+.compressor-settings-heading p {
+    color: #8494a1;
+    font-size: 12px;
+    line-height: 1.7;
+    margin: 0;
+}
+
+.compressor-quality-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.compressor-quality-heading label,
+.compressor-format-setting label {
+    color: #e8eef3;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.compressor-quality-heading > span {
+    padding: 7px 11px;
+    background: rgba(255, 193, 7, 0.1);
+    border: 1px solid rgba(255, 193, 7, 0.25);
+    border-radius: 6px;
+    color: #ffc107;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+#compressionQuality {
+    width: 100%;
+    height: 7px;
+    display: block;
+    margin: 20px 0 12px;
+    accent-color: #ffc107;
+    cursor: pointer;
+}
+
+.compressor-quality-labels {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    color: #718392;
+    font-size: 10px;
+}
+
+.compressor-format-setting {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.compressor-format-setting select {
+    min-width: 140px;
+    padding: 11px 35px 11px 12px;
+    background-color: #0d2132;
+    border: 1px solid #304658;
+    border-radius: 7px;
+    color: #ffffff;
+    outline: none;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.compressor-format-setting select:focus {
+    border-color: #ffc107;
+}
+
+.compressor-format-setting select option {
+    background: #091a29;
+    color: #ffffff;
+}
+
+.compressor-process-btn {
+    width: 100%;
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    margin-top: 25px;
+    padding: 13px 18px;
+    background: #ffc107;
+    border: none;
+    border-radius: 8px;
+    color: #06111b;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s ease,
+                transform 0.2s ease;
+}
+
+.compressor-process-btn:hover:not(:disabled) {
+    background: #ffd54f;
+    transform: translateY(-2px);
+}
+
+.compressor-process-btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+.compressor-settings-note {
+    margin: 15px 0 0;
+    color: #8494a1;
+    font-size: 11px;
+    line-height: 1.8;
+    text-align: center;
+}
+
+.compressor-settings-note i {
+    color: #ffc107;
+    margin-right: 5px;
+}
+
+
+/* ==============================
+   COMPRESSION STATISTICS
+============================== */
+
+.compressor-statistics {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 13px;
+    margin: 18px 0;
+}
+
+.compressor-stat-card {
+    padding: 19px 12px;
+    background: #0d2132;
+    border: 1px solid #203548;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.compressor-stat-card span {
+    display: block;
+    color: #8494a1;
+    font-size: 11px;
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+
+.compressor-stat-card strong {
+    display: block;
+    color: #ffc107;
+    font-size: 21px;
+    overflow-wrap: anywhere;
+}
+
+
+/* ==============================
+   SAVINGS MESSAGE
+============================== */
+
+.compressor-savings-box {
+    display: flex;
+    align-items: flex-start;
+    gap: 13px;
+    padding: 17px;
+    background: rgba(36, 209, 143, 0.07);
+    border: 1px solid rgba(36, 209, 143, 0.2);
+    border-radius: 10px;
+}
+
+.compressor-savings-box > i {
+    color: #24d18f;
+    font-size: 20px;
+    margin-top: 2px;
+}
+
+.compressor-savings-box strong {
+    display: block;
+    color: #24d18f;
+    font-size: 13px;
+    margin-bottom: 7px;
+}
+
+.compressor-savings-box p {
+    color: #a5b3bf;
+    font-size: 12px;
+    line-height: 1.8;
+    margin: 0;
+}
+
+
+/* ==============================
+   RESULT BUTTONS
+============================== */
+
+.compressor-result-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.compressor-download-btn,
+.compressor-reset-btn {
+    min-height: 46px;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    padding: 12px 15px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.compressor-download-btn {
+    background: #ffc107;
+    border: 1px solid #ffc107;
+    color: #06111b;
+}
+
+.compressor-download-btn:hover:not(:disabled) {
+    background: #ffd54f;
+}
+
+.compressor-reset-btn {
+    background: #142636;
+    border: 1px solid #304658;
+    color: #dce5ec;
+}
+
+.compressor-reset-btn:hover {
+    border-color: #ff647c;
+    color: #ff647c;
+}
+
+.compressor-download-btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+
+/* ==============================
+   STATUS MESSAGE
+============================== */
+
+.compressor-message {
+    margin-top: 17px;
+    text-align: center;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.compressor-message.success {
+    color: #24d18f;
+}
+
+.compressor-message.error {
+    color: #ff647c;
+}
+
+
+/* ==============================
+   RESPONSIVE DESIGN
+============================== */
+
+@media (max-width: 768px) {
+
+    .image-compressor-page {
+        padding: 28px 4% 45px;
+    }
+
+    .compressor-container {
+        padding: 22px;
+    }
+
+    .compressor-hero h1 {
+        font-size: 32px;
+    }
+
+    .compressor-image-preview,
+    .compressor-result-preview {
+        min-height: 190px;
+    }
+
+}
+
+
+@media (max-width: 480px) {
+
+    .image-compressor-page {
+        padding: 25px 14px 35px;
+    }
+
+    .compressor-hero {
+        margin-bottom: 25px;
+    }
+
+    .compressor-hero h1 {
+        font-size: 27px;
+    }
+
+    .compressor-hero > p {
+        font-size: 13px;
+    }
+
+    .compressor-hero-tags {
+        gap: 8px;
+    }
+
+    .compressor-hero-tags span {
+        padding: 8px 10px;
+        font-size: 10px;
+    }
+
+    .compressor-container {
+        padding: 16px;
+        border-radius: 13px;
+    }
+
+    .compressor-heading {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .compressor-heading h2 {
+        font-size: 18px;
+    }
+
+    .compressor-upload-area {
+        padding: 27px 13px;
+    }
+
+    .compressor-upload-area h3 {
+        font-size: 16px;
+    }
+
+    .compressor-image-preview,
+    .compressor-result-preview {
+        min-height: 165px;
+        padding: 10px;
+    }
+
+    .compressor-image-preview img,
+    .compressor-result-preview img {
+        max-height: 300px;
+    }
+
+    .compressor-image-details {
+        grid-template-columns: 1fr;
+        gap: 9px;
+    }
+
+    .compressor-image-details > div {
+        padding: 12px;
+    }
+
+    .compressor-settings {
+        padding: 17px;
+    }
+
+    .compressor-statistics {
+        gap: 8px;
+    }
+
+    .compressor-stat-card {
+        padding: 14px 5px;
+    }
+
+    .compressor-stat-card span {
+        font-size: 10px;
+    }
+
+    .compressor-stat-card strong {
+        font-size: 17px;
+    }
+
+    .compressor-result-actions {
+        flex-direction: column;
+    }
+
+    .compressor-download-btn,
+    .compressor-reset-btn {
+        width: 100%;
+    }
+
+}
+
+/* ==============================
+   INFORMATION SECTIONS
+============================== */
+
+.compressor-info-section {
+    max-width: 1100px;
+    margin: 65px auto 0;
+}
+
+.compressor-section-heading {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.compressor-section-label {
+    display: inline-block;
+    color: #ffc107;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+}
+
+.compressor-section-heading h2 {
+    color: #ffffff;
+    font-size: clamp(23px, 4vw, 31px);
+    line-height: 1.4;
+    margin: 0 0 12px;
+}
+
+.compressor-section-heading p {
+    max-width: 650px;
+    margin: 0 auto;
+    color: #8494a1;
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+
+/* ==============================
+   HOW TO USE
+============================== */
+
+.compressor-steps-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 15px;
+}
+
+.compressor-step-card {
+    position: relative;
+    padding: 23px 18px;
+    background: #091a29;
+    border: 1px solid #203548;
+    border-radius: 13px;
+    transition: transform 0.25s ease,
+                border-color 0.25s ease;
+}
+
+.compressor-step-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255, 193, 7, 0.5);
+}
+
+.compressor-step-number {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    color: #405365;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.compressor-step-icon {
+    width: 43px;
+    height: 43px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    background: rgba(255, 193, 7, 0.1);
+    border: 1px solid rgba(255, 193, 7, 0.2);
+    border-radius: 11px;
+    color: #ffc107;
+    font-size: 17px;
+}
+
+.compressor-step-card h3 {
+    color: #ffffff;
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 0 0 10px;
+}
+
+.compressor-step-card p {
+    color: #8494a1;
+    font-size: 12px;
+    line-height: 1.8;
+    margin: 0;
+}
+
+
+/* ==============================
+   FEATURES
+============================== */
+
+.compressor-features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 17px;
+}
+
+.compressor-feature-card {
+    padding: 24px 21px;
+    background: #091a29;
+    border: 1px solid #203548;
+    border-radius: 13px;
+    transition: border-color 0.25s ease,
+                transform 0.25s ease;
+}
+
+.compressor-feature-card:hover {
+    border-color: rgba(255, 193, 7, 0.45);
+    transform: translateY(-3px);
+}
+
+.compressor-feature-icon {
+    width: 46px;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 17px;
+    background: rgba(255, 193, 7, 0.1);
+    border-radius: 12px;
+    color: #ffc107;
+    font-size: 19px;
+}
+
+.compressor-feature-card h3 {
+    color: #ffffff;
+    font-size: 15px;
+    line-height: 1.5;
+    margin: 0 0 10px;
+}
+
+.compressor-feature-card p {
+    color: #8494a1;
+    font-size: 12px;
+    line-height: 1.9;
+    margin: 0;
+}
+
+
+/* ==============================
+   FAQ
+============================== */
+
+.compressor-faq-list {
+    max-width: 850px;
+    margin: 0 auto;
+}
+
+.compressor-faq-item {
+    margin-bottom: 12px;
+    overflow: hidden;
+    background: #091a29;
+    border: 1px solid #203548;
+    border-radius: 10px;
+}
+
+.compressor-faq-item summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 19px 21px;
+    color: #e8eef3;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.6;
+    cursor: pointer;
+    list-style: none;
+}
+
+.compressor-faq-item summary::-webkit-details-marker {
+    display: none;
+}
+
+.compressor-faq-item summary i {
+    flex-shrink: 0;
+    color: #ffc107;
+    font-size: 12px;
+    transition: transform 0.2s ease;
+}
+
+.compressor-faq-item[open] summary {
+    color: #ffc107;
+    border-bottom: 1px solid #203548;
+}
+
+.compressor-faq-item[open] summary i {
+    transform: rotate(45deg);
+}
+
+.compressor-faq-item p {
+    padding: 18px 21px;
+    margin: 0;
+    color: #8494a1;
+    font-size: 13px;
+    line-height: 1.9;
+}
+
+
+/* ==============================
+   RELATED TOOLS
+============================== */
+
+.compressor-related-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 15px;
+}
+
+.compressor-related-tool {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    min-width: 0;
+    padding: 19px;
+    background: #091a29;
+    border: 1px solid #203548;
+    border-radius: 12px;
+    text-decoration: none;
+    transition: border-color 0.25s ease,
+                transform 0.25s ease;
+}
+
+.compressor-related-tool:hover {
+    border-color: #ffc107;
+    transform: translateY(-3px);
+}
+
+.compressor-related-icon {
+    width: 46px;
+    height: 46px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 193, 7, 0.1);
+    border-radius: 11px;
+    color: #ffc107;
+    font-size: 18px;
+}
+
+.compressor-related-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.compressor-related-info h3 {
+    color: #ffffff;
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 0 0 7px;
+}
+
+.compressor-related-info p {
+    color: #8494a1;
+    font-size: 11px;
+    line-height: 1.7;
+    margin: 0;
+}
+
+.compressor-related-arrow {
+    flex-shrink: 0;
+    color: #607382;
+    font-size: 13px;
+    transition: color 0.2s ease,
+                transform 0.2s ease;
+}
+
+.compressor-related-tool:hover .compressor-related-arrow {
+    color: #ffc107;
+    transform: translateX(4px);
+}
+
+
+/* ==============================
+   RESPONSIVE INFORMATION SECTIONS
+============================== */
+
+@media (max-width: 900px) {
+
+    .compressor-steps-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .compressor-features-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .compressor-info-section {
+        margin-top: 48px;
+    }
+
+    .compressor-section-heading {
+        margin-bottom: 23px;
+    }
+
+    .compressor-section-heading p {
+        font-size: 12px;
+    }
+
+    .compressor-steps-grid,
+    .compressor-features-grid,
+    .compressor-related-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .compressor-step-card,
+    .compressor-feature-card {
+        padding: 20px;
+    }
+
+    .compressor-faq-item summary {
+        padding: 16px;
+        font-size: 13px;
+    }
+
+    .compressor-faq-item p {
+        padding: 15px 16px;
+        font-size: 12px;
+    }
+
+    .compressor-related-tool {
+        padding: 16px;
+        gap: 12px;
+    }
+
+}
+
+/* Fix Image Compressor Preview */
+
+#originalPreviewBox,
+#compressedPreviewBox {
+    position: relative;
+    min-height: 220px;
+    overflow: hidden;
+}
+
+#originalImagePreview,
+#compressedImagePreview {
+    display: none;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    max-height: 350px;
+    object-fit: contain;
+    margin: 0 auto;
+}
+
+.compressor-empty-preview {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
