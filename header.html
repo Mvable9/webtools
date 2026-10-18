@@ -1,5 +1,4 @@
 <!-- header.html -->
-
 <header class="site-header">
     <div class="header-container">
 
@@ -43,12 +42,27 @@
 
 
         <!-- Header Actions -->
-        <div class="header-actions">
+        <div class="header-actions"><div class="header-search" id="headerSearch">
 
-            <button class="search-btn" id="headerSearchBtn">
-                <i class="fa-solid fa-magnifying-glass"></i>
-            </button>
+    <input
+        type="search"
+        id="headerSearchInput"
+        placeholder="Search tools..."
+        autocomplete="off"
+        aria-label="Search available tools"
+    >
 
+    <button class="search-btn" id="headerSearchBtn" type="button">
+        <i class="fa-solid fa-magnifying-glass"></i>
+    </button>
+
+    <div class="search-results" id="headerSearchResults"></div>
+
+        </div>
+
+
+
+          
             <a href="tools.php" class="get-started">
                 Get Started
             </a>
@@ -113,7 +127,6 @@
 
 </header>
 
-
 <style>
 
 /* ========================================
@@ -126,13 +139,17 @@
     box-sizing: border-box;
 }
 
-.site-header {
+
+  .site-header {
     width: 100%;
     background: #06111b;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+
     position: relative;
-    z-index: 9999;
-}
+    z-index: 99999;
+    overflow: visible;
+   /* isolation: isolate;*/
+  }
 /* FIX HEADER DROPDOWN VISIBILITY */
 
 header,
@@ -663,9 +680,137 @@ nav {
     outline-offset: 2px;
 }
 
+
+
+  /* HEADER SEARCH */
+
+.header-search {
+position: relative;
+display: flex;
+align-items: center;
+width: 220px;
+height: 40px;
+border: 1px solid #203548;
+border-radius: 25px;
+background: #091a29;
+  z-index: 100000;
+ /* isolation: isolate;*/
+}
+
+.header-search input {
+width: 100%;
+min-width: 0;
+height: 100%;
+padding: 0 10px 0 15px;
+border: none;
+outline: none;
+background: transparent;
+color: #ffffff;
+font-size: 12px;
+}
+
+.header-search input::placeholder {
+color: #8494a1;
+}
+
+.header-search .search-btn {
+width: 36px;
+height: 36px;
+flex-shrink: 0;
+margin-right: 2px;
+border-radius: 50%;
+background: #ffc107;
+color: #06111b;
+font-size: 13px;
+}
+
+.header-search .search-btn:hover {
+background: #ffd54f;
+color: #06111b;
+}
+
+
+.search-results {
+    display: none;
+    position: absolute;
+
+    top: calc(100% + 10px);
+    left: 0;
+    width: 100%;
+
+    max-height: 350px;
+    overflow-y: auto;
+
+    padding: 6px;
+
+    background: #091a29;
+    border: 1px solid #203548;
+    border-radius: 12px;
+
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+
+    z-index: 999999;
+}
+
+.search-results.show {
+    display: block;
+}
+
+
+
+
+  
+
+
+
+
+  
+.search-result {
+display: block;
+padding: 11px;
+border-radius: 7px;
+color: #ffffff;
+text-decoration: none;
+  z-index: 99999;
+}
+
+.search-result:hover {
+background: #10283c;
+}
+
+.search-result strong {
+display: block;
+font-size: 13px;
+}
+
+.search-result small {
+display: block;
+margin-top: 3px;
+color: #8494a1;
+font-size: 11px;
+}
+
+.search-no-result {
+padding: 12px;
+color: #8494a1;
+font-size: 12px;
+}
+
+@media (max-width: 768px) {
+.header-search {
+width: 175px;
+}
+}
+
+@media (max-width: 400px) {
+  .search-results{
+    width: 120%;
+  }
+.header-search {
+width: 145px;
+}
+}
 </style>
-
-
 <!-- Font Awesome -->
 <link
     rel="stylesheet"
@@ -674,7 +819,6 @@ nav {
 
 
 <script>
-
 const menuBtn = document.getElementById("menuBtn");
 const mobileMenu = document.getElementById("mobileMenu");
 
@@ -737,4 +881,1439 @@ mobileLinks.forEach(function (link) {
 
 });
 
+
+
+
+
+
+
+
+
+
+
+
+
+function initializeHeaderSearch() {
+
+    const searchInput = document.getElementById("headerSearchInput");
+    const searchButton = document.getElementById("headerSearchBtn");
+    const searchResults = document.getElementById("headerSearchResults");
+    const searchContainer = document.getElementById("headerSearch");
+
+    if (!searchInput || !searchButton || !searchResults) {
+        return;
+    }
+
+    // Avoid attaching duplicate event listeners.
+    if (searchInput.dataset.searchInitialized === "true") {
+        return;
+    }
+
+    searchInput.dataset.searchInitialized = "true";
+
+    // Register your available tools here.
+    const tools = [
+
+        {
+            name: "Age Calculator",
+            description: "Calculate your age in years, months and days.",
+            url: "age-calculator.html",
+            keywords: "birthday date of birth age"
+        },
+
+        {
+            name: "BMI Calculator",
+            description: "Calculate your body mass index.",
+            url: "bmi-calculator.html",
+            keywords: "body mass index weight height health"
+        },
+
+        {
+            name: "Loan Calculator",
+            description: "Calculate loan payments and interest.",
+            url: "loan-calculator.html",
+            keywords: "borrow money repayment debt"
+        },
+
+        {
+            name: "Simple Interest Calculator",
+            description: "Calculate simple interest on money.",
+            url: "simple-interest.html",
+            keywords: "finance principal rate time"
+        },
+
+        {
+            name: "Compound Interest Calculator",
+            description: "Calculate compound interest and growth.",
+            url: "compound-interest.html",
+            keywords: "finance investment savings returns"
+        },
+
+        {
+            name: "Tip Calculator",
+            description: "Calculate tips and split bills.",
+            url: "tip-calculator.html",
+            keywords: "restaurant bill percentage money"
+        },
+
+        {
+            name: "Currency Converter",
+            description: "Convert amounts between currencies.",
+            url: "currency-converter.html",
+            keywords: "money exchange foreign currency"
+        },
+
+        {
+            name: "Time Converter",
+            description: "Convert time between different units.",
+            url: "time-converter.html",
+            keywords: "seconds minutes hours days"
+        },
+
+        {
+            name: "QR Code Generator",
+            description: "Generate QR codes from text or links.",
+            url: "qr-generator.html",
+            keywords: "barcode scan link website"
+        },
+
+        {
+            name: "Color Picker",
+            description: "Choose colors and get their color codes.",
+            url: "color-picker.html",
+            keywords: "hex rgb color generator design"
+        },
+
+        {
+            name: "Username Generator",
+            description: "Generate creative username ideas.",
+            url: "username-generator.html",
+            keywords: "name social media account"
+        },
+
+        {
+            name: "UUID Generator",
+            description: "Generate unique identifiers.",
+            url: "uuid-generator.html",
+            keywords: "unique id identifier developer"
+        },
+
+        {
+            name: "JSON Formatter",
+            description: "Format and organize JSON data.",
+            url: "json-formatter.html",
+            keywords: "developer code data beautifier"
+        },
+
+        {
+            name: "HTML Formatter",
+            description: "Format HTML code for readability.",
+            url: "html-formatter.html",
+            keywords: "developer markup code"
+        },
+
+        {
+            name: "CSS Formatter",
+            description: "Format CSS code neatly.",
+            url: "css-formatter.html",
+            keywords: "developer stylesheet design code"
+        },
+
+        {
+            name: "JavaScript Formatter",
+            description: "Format JavaScript code for readability.",
+            url: "javascript-formatter.html",
+            keywords: "js developer programming code"
+        },
+
+        {
+            name: "JSON Minifier",
+            description: "Reduce the size of JSON data.",
+            url: "json-minifier.html",
+            keywords: "developer compress data code"
+        },
+
+        {
+            name: "HTML Minifier",
+            description: "Reduce the size of HTML code.",
+            url: "html-minifier.html",
+            keywords: "developer compress markup"
+        },
+
+        {
+            name: "CSS Minifier",
+            description: "Minify CSS code.",
+            url: "css-minifier.html",
+            keywords: "developer compress stylesheet"
+        },
+
+        {
+            name: "Case Converter",
+            description: "Change text to uppercase or lowercase.",
+            url: "case-converter.html",
+            keywords: "text capital letters sentence title case"
+        },
+
+        {
+            name: "Text Reverser",
+            description: "Reverse text or the order of characters.",
+            url: "text-reverser.html",
+            keywords: "words letters reverse string"
+                <!-- header.html -->
+<header class="site-header">
+    <div class="header-container">
+
+        <!-- Logo -->
+        <a href="index.php" class="logo">
+            <span class="logo-icon">
+                <i class="fa-solid fa-screwdriver-wrench"></i>
+            </span>
+
+            <span class="logo-text">
+                <strong>Naija<span>WebTools</span></strong>
+                <small>Simple Tools. Big Possibilities.</small>
+            </span>
+        </a>
+
+
+        <!-- Desktop Navigation -->
+        <nav class="main-nav">
+            <a href="index.php" class="active">Home</a>
+            <a href="tools.html">Tools</a>
+
+            <div class="nav-dropdown">
+                <button class="category-btn">
+                    Categories
+                    <i class="fa-solid fa-chevron-down"></i>
+                </button>
+
+                <div class="dropdown-menu">
+                    <a href="#">Calculators</a>
+                    <a href="#">Converters</a>
+                    <a href="#">Generators</a>
+                    <a href="#">Formatters</a>
+                    <a href="#">Productivity</a>
+                    <a href="#">Media Tools</a>
+                </div>
+            </div>
+
+            <a href="about.php">About</a>
+            <a href="contact.php">Contact</a>
+        </nav>
+
+
+        <!-- Header Actions -->
+        <div class="header-actions"><div class="header-search" id="headerSearch">
+
+    <input
+        type="search"
+        id="headerSearchInput"
+        placeholder="Search tools..."
+        autocomplete="off"
+        aria-label="Search available tools"
+    >
+
+    <button class="search-btn" id="headerSearchBtn" type="button">
+        <i class="fa-solid fa-magnifying-glass"></i>
+    </button>
+
+    <div class="search-results" id="headerSearchResults"></div>
+
+        </div>
+
+
+
+          
+            <a href="tools.php" class="get-started">
+                Get Started
+            </a>
+
+            <!-- Mobile Menu Button -->
+            <button class="menu-btn" id="menuBtn">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- Mobile Navigation -->
+    <div class="mobile-menu" id="mobileMenu">
+
+        <a href="index.php" class="mobile-active">
+            <i class="fa-solid fa-house"></i>
+            Home
+        </a>
+
+        <a href="tools.php">
+            <i class="fa-solid fa-toolbox"></i>
+            Tools
+        </a>
+
+        <button class="mobile-category-btn" id="mobileCategoryBtn">
+            <span>
+                <i class="fa-solid fa-layer-group"></i>
+                Categories
+            </span>
+
+            <i class="fa-solid fa-chevron-down"></i>
+        </button>
+
+        <div class="mobile-categories" id="mobileCategories">
+            <a href="#">Calculators</a>
+            <a href="#">Converters</a>
+            <a href="#">Generators</a>
+            <a href="#">Formatters</a>
+            <a href="#">Productivity</a>
+            <a href="#">Media Tools</a>
+        </div>
+
+        <a href="about.php">
+            <i class="fa-solid fa-circle-info"></i>
+            About
+        </a>
+
+        <a href="contact.php">
+            <i class="fa-solid fa-envelope"></i>
+            Contact
+        </a>
+
+        <a href="tools.php" class="mobile-get-started">
+            Get Started
+            <i class="fa-solid fa-arrow-right"></i>
+        </a>
+
+    </div>
+
+</header>
+
+<style>
+
+/* ========================================
+   NAJIAWEBTOOLS HEADER
+======================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+  .site-header {
+    width: 100%;
+    background: #06111b;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+
+    position: relative;
+    z-index: 99999;
+    overflow: visible;
+   /* isolation: isolate;*/
+  }
+/* FIX HEADER DROPDOWN VISIBILITY */
+
+header,
+.header,
+.header-container,
+.navbar,
+nav {
+    overflow: visible;
+}
+
+.dropdown,
+.dropdown-menu,
+.nav-dropdown {
+    position: absolute;
+    z-index: 9999;
+}
+  
+.header-container {
+    width: 100%;
+    max-width: 1400px;
+    height: 70px;
+    margin: auto;
+    padding: 0 50px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+/* ========================================
+   LOGO
+======================================== */
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    text-decoration: none;
+    color: white;
+}
+
+.logo-icon {
+    width: 39px;
+    height: 39px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #ffc107;
+    font-size: 25px;
+}
+
+.logo-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.logo-text strong {
+    font-size: 21px;
+    line-height: 21px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+}
+
+.logo-text strong span {
+    color: #ffc107;
+}
+
+.logo-text small {
+    margin-top: 3px;
+    color: #aab6c2;
+    font-size: 9px;
+    letter-spacing: 0.2px;
+}
+
+
+/* ========================================
+   DESKTOP NAVIGATION
+======================================== */
+
+.main-nav {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.main-nav > a,
+.category-btn {
+    height: 70px;
+    padding: 0 15px;
+
+    display: flex;
+    align-items: center;
+
+    color: #dce4eb;
+    text-decoration: none;
+
+    font-size: 14px;
+    font-weight: 500;
+
+    background: none;
+    border: none;
+    cursor: pointer;
+
+    position: relative;
+
+    transition: 0.3s ease;
+}
+
+.main-nav > a:hover,
+.category-btn:hover {
+    color: #ffc107;
+}
+
+
+/* Active link */
+
+.main-nav > a.active {
+    color: #ffc107;
+}
+
+.main-nav > a.active::after {
+    content: "";
+
+    position: absolute;
+    bottom: 0;
+    left: 15px;
+    right: 15px;
+
+    height: 2px;
+    background: #ffc107;
+}
+
+
+/* ========================================
+   CATEGORY DROPDOWN
+======================================== */
+
+.nav-dropdown {
+    position: relative;
+}
+
+.category-btn {
+    gap: 7px;
+}
+
+.category-btn i {
+    font-size: 9px;
+}
+
+.dropdown-menu {
+    position: absolute;
+
+    top: 67px;
+    left: 0;
+
+    width: 190px;
+
+    background: #0b1b29;
+    border: 1px solid rgba(255, 193, 7, 0.15);
+
+    border-radius: 10px;
+    padding: 8px;
+
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(8px);
+
+    transition: 0.25s ease;
+
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+}
+
+.nav-dropdown:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-menu a {
+    display: block;
+
+    padding: 11px 13px;
+
+    color: #bfcbd6;
+    text-decoration: none;
+
+    font-size: 13px;
+
+    border-radius: 7px;
+
+    transition: 0.2s ease;
+}
+
+.dropdown-menu a:hover {
+    background: rgba(255, 193, 7, 0.08);
+    color: #ffc107;
+}
+
+
+/* ========================================
+   HEADER ACTIONS
+======================================== */
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.search-btn {
+    width: 40px;
+    height: 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: transparent;
+    border: none;
+
+    color: white;
+    font-size: 18px;
+
+    cursor: pointer;
+
+    transition: 0.3s ease;
+}
+
+.search-btn:hover {
+    color: #ffc107;
+    transform: scale(1.08);
+}
+
+
+/* Get Started */
+
+.get-started {
+    padding: 10px 20px;
+
+    background: #ffc107;
+    color: #07111a;
+
+    text-decoration: none;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    border-radius: 25px;
+
+    transition: 0.3s ease;
+}
+
+.get-started:hover {
+    background: #ffd54f;
+    transform: translateY(-2px);
+}
+
+
+/* ========================================
+   MOBILE MENU BUTTON
+======================================== */
+
+.menu-btn {
+    display: none;
+
+    width: 40px;
+    height: 40px;
+
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+
+    color: white;
+    border-radius: 8px;
+
+    font-size: 18px;
+    cursor: pointer;
+}
+
+
+/* ========================================
+   MOBILE MENU
+======================================== */
+
+
+.mobile-menu {
+    display: none;
+    position: absolute;
+    z-index: 99999;
+}
+/* ========================================
+   RESPONSIVE
+======================================== */
+
+@media (max-width: 900px) {
+
+    .header-container {
+        padding: 0 25px;
+    }
+
+    .main-nav {
+        gap: 0;
+    }
+
+    .main-nav > a,
+    .category-btn {
+        padding: 0 9px;
+        font-size: 13px;
+    }
+
+    .get-started {
+        padding: 9px 15px;
+    }
+
+}
+
+
+@media (max-width: 768px) {
+
+    .header-container {
+        height: 65px;
+        padding: 0 18px;
+    }
+
+
+    /* Hide desktop navigation */
+
+    .main-nav {
+        display: none;
+    }
+
+
+    /* Hide desktop Get Started */
+
+    .get-started {
+        display: none;
+    }
+
+
+    /* Show mobile button */
+
+    .menu-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+
+    .header-actions {
+        gap: 5px;
+    }
+
+
+    /* Mobile Menu */
+
+    .mobile-menu {
+        display: block;
+
+        position: absolute;
+
+        top: 65px;
+        left: 0;
+
+        width: 100%;
+
+        background: #081521;
+
+        border-top: 1px solid rgba(255, 255, 255, 0.06);
+
+        padding: 10px 18px 18px;
+
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-10px);
+
+        transition: 0.3s ease;
+    }
+
+    .mobile-menu.show {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+
+
+    .mobile-menu > a,
+    .mobile-category-btn {
+        width: 100%;
+
+        min-height: 48px;
+
+        display: flex;
+        align-items: center;
+
+        gap: 12px;
+
+        padding: 0 14px;
+
+        color: #dce4eb;
+        text-decoration: none;
+
+        background: transparent;
+        border: none;
+
+        font-family: inherit;
+        font-size: 14px;
+
+        border-radius: 8px;
+
+        cursor: pointer;
+
+        transition: 0.2s ease;
+    }
+
+    .mobile-menu > a:hover,
+    .mobile-category-btn:hover,
+    .mobile-active {
+        color: #ffc107 !important;
+        background: rgba(255, 193, 7, 0.07) !important;
+    }
+
+
+    .mobile-category-btn {
+        justify-content: space-between;
+    }
+
+    .mobile-category-btn span {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+
+    /* Mobile categories */
+
+    .mobile-categories {
+        display: none;
+
+        padding-left: 45px;
+        padding-bottom: 5px;
+    }
+
+    .mobile-categories.show {
+        display: block;
+    }
+
+    .mobile-categories a {
+        display: block;
+
+        padding: 9px 10px;
+
+        color: #9eacb8;
+        text-decoration: none;
+
+        font-size: 13px;
+
+        transition: 0.2s ease;
+    }
+
+    .mobile-categories a:hover {
+        color: #ffc107;
+    }
+
+
+    /* Mobile Get Started */
+
+    .mobile-get-started {
+        margin-top: 10px;
+
+        justify-content: center !important;
+
+        background: #ffc107 !important;
+        color: #07111a !important;
+
+        font-weight: 700;
+
+        border-radius: 25px !important;
+    }
+
+    .mobile-get-started:hover {
+        background: #ffd54f !important;
+        color: #07111a !important;
+    }
+
+
+    .logo-text strong {
+        font-size: 18px;
+    }
+
+    .logo-text small {
+        font-size: 8px;
+    }
+
+    .logo-icon {
+        font-size: 21px;
+    }
+
+}
+
+
+@media (max-width: 400px) {
+
+    .header-container {
+        padding: 0 13px;
+    }
+
+    .logo-text small {
+        display: none;
+    }
+
+    .logo-text strong {
+        font-size: 17px;
+    }
+
+}
+
+
+/* ========================================
+   SEARCH BUTTON
+======================================== */
+
+.search-btn:focus,
+.menu-btn:focus,
+.category-btn:focus {
+    outline: 2px solid rgba(255, 193, 7, 0.5);
+    outline-offset: 2px;
+}
+
+
+
+  /* HEADER SEARCH */
+
+.header-search {
+position: relative;
+display: flex;
+align-items: center;
+width: 220px;
+height: 40px;
+border: 1px solid #203548;
+border-radius: 25px;
+background: #091a29;
+  z-index: 100000;
+ /* isolation: isolate;*/
+}
+
+.header-search input {
+width: 100%;
+min-width: 0;
+height: 100%;
+padding: 0 10px 0 15px;
+border: none;
+outline: none;
+background: transparent;
+color: #ffffff;
+font-size: 12px;
+}
+
+.header-search input::placeholder {
+color: #8494a1;
+}
+
+.header-search .search-btn {
+width: 36px;
+height: 36px;
+flex-shrink: 0;
+margin-right: 2px;
+border-radius: 50%;
+background: #ffc107;
+color: #06111b;
+font-size: 13px;
+}
+
+.header-search .search-btn:hover {
+background: #ffd54f;
+color: #06111b;
+}
+
+
+.search-results {
+    display: none;
+    position: absolute;
+
+    top: calc(100% + 10px);
+    left: 0;
+    width: 100%;
+
+    max-height: 350px;
+    overflow-y: auto;
+
+    padding: 6px;
+
+    background: #091a29;
+    border: 1px solid #203548;
+    border-radius: 12px;
+
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+
+    z-index: 999999;
+}
+
+.search-results.show {
+    display: block;
+}
+
+
+
+
+  
+
+
+
+
+  
+.search-result {
+display: block;
+padding: 11px;
+border-radius: 7px;
+color: #ffffff;
+text-decoration: none;
+  z-index: 99999;
+}
+
+.search-result:hover {
+background: #10283c;
+}
+
+.search-result strong {
+display: block;
+font-size: 13px;
+}
+
+.search-result small {
+display: block;
+margin-top: 3px;
+color: #8494a1;
+font-size: 11px;
+}
+
+.search-no-result {
+padding: 12px;
+color: #8494a1;
+font-size: 12px;
+}
+
+@media (max-width: 768px) {
+.header-search {
+width: 175px;
+}
+}
+
+@media (max-width: 400px) {
+  .search-results{
+    width: 120%;
+  }
+.header-search {
+width: 145px;
+}
+}
+</style>
+<!-- Font Awesome -->
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+>
+
+
+<script>
+const menuBtn = document.getElementById("menuBtn");
+const mobileMenu = document.getElementById("mobileMenu");
+
+const mobileCategoryBtn =
+    document.getElementById("mobileCategoryBtn");
+
+const mobileCategories =
+    document.getElementById("mobileCategories");
+
+
+/* Open / Close Mobile Menu */
+
+menuBtn.addEventListener("click", function () {
+
+    mobileMenu.classList.toggle("show");
+
+    const icon = menuBtn.querySelector("i");
+
+    if (mobileMenu.classList.contains("show")) {
+
+        icon.classList.remove("fa-bars");
+        icon.classList.add("fa-xmark");
+
+    } else {
+
+        icon.classList.remove("fa-xmark");
+        icon.classList.add("fa-bars");
+
+    }
+
+});
+
+
+/* Mobile Categories */
+
+mobileCategoryBtn.addEventListener("click", function () {
+
+    mobileCategories.classList.toggle("show");
+
+});
+
+
+/* Close menu when clicking a normal link */
+
+const mobileLinks =
+    mobileMenu.querySelectorAll("a");
+
+mobileLinks.forEach(function (link) {
+
+    link.addEventListener("click", function () {
+
+        mobileMenu.classList.remove("show");
+
+        const icon = menuBtn.querySelector("i");
+
+        icon.classList.remove("fa-xmark");
+        icon.classList.add("fa-bars");
+
+    });
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+function initializeHeaderSearch() {
+
+    const searchInput = document.getElementById("headerSearchInput");
+    const searchButton = document.getElementById("headerSearchBtn");
+    const searchResults = document.getElementById("headerSearchResults");
+    const searchContainer = document.getElementById("headerSearch");
+
+    if (!searchInput || !searchButton || !searchResults) {
+        return;
+    }
+
+    // Avoid attaching duplicate event listeners.
+    if (searchInput.dataset.searchInitialized === "true") {
+        return;
+    }
+
+    searchInput.dataset.searchInitialized = "true";
+
+    // Register your available tools here.
+    const tools = [
+
+        {
+            name: "Age Calculator",
+            description: "Calculate your age in years, months and days.",
+            url: "age-calculator.html",
+            keywords: "birthday date of birth age"
+        },
+
+        {
+            name: "BMI Calculator",
+            description: "Calculate your body mass index.",
+            url: "bmi-calculator.html",
+            keywords: "body mass index weight height health"
+        },
+
+        {
+            name: "Loan Calculator",
+            description: "Calculate loan payments and interest.",
+            url: "loan-calculator.html",
+            keywords: "borrow money repayment debt"
+        },
+
+        {
+            name: "Simple Interest Calculator",
+            description: "Calculate simple interest on money.",
+            url: "simple-interest.html",
+            keywords: "finance principal rate time"
+        },
+
+        {
+            name: "Compound Interest Calculator",
+            description: "Calculate compound interest and growth.",
+            url: "compound-interest.html",
+            keywords: "finance investment savings returns"
+        },
+
+        {
+            name: "Tip Calculator",
+            description: "Calculate tips and split bills.",
+            url: "tip-calculator.html",
+            keywords: "restaurant bill percentage money"
+        },
+
+        {
+            name: "Currency Converter",
+            description: "Convert amounts between currencies.",
+            url: "currency-converter.html",
+            keywords: "money exchange foreign currency"
+        },
+
+        {
+            name: "Time Converter",
+            description: "Convert time between different units.",
+            url: "time-converter.html",
+            keywords: "seconds minutes hours days"
+        },
+
+        {
+            name: "QR Code Generator",
+            description: "Generate QR codes from text or links.",
+            url: "qr-generator.html",
+            keywords: "barcode scan link website"
+        },
+
+        {
+            name: "Color Picker",
+            description: "Choose colors and get their color codes.",
+            url: "color-picker.html",
+            keywords: "hex rgb color generator design"
+        },
+
+        {
+            name: "Username Generator",
+            description: "Generate creative username ideas.",
+            url: "username-generator.html",
+            keywords: "name social media account"
+        },
+
+        {
+            name: "UUID Generator",
+            description: "Generate unique identifiers.",
+            url: "uuid-generator.html",
+            keywords: "unique id identifier developer"
+        },
+
+        {
+            name: "JSON Formatter",
+            description: "Format and organize JSON data.",
+            url: "json-formatter.html",
+            keywords: "developer code data beautifier"
+        },
+
+        {
+            name: "HTML Formatter",
+            description: "Format HTML code for readability.",
+            url: "html-formatter.html",
+            keywords: "developer markup code"
+        },
+
+        {
+            name: "CSS Formatter",
+            description: "Format CSS code neatly.",
+            url: "css-formatter.html",
+            keywords: "developer stylesheet design code"
+        },
+
+        {
+            name: "JavaScript Formatter",
+            description: "Format JavaScript code for readability.",
+            url: "javascript-formatter.html",
+            keywords: "js developer programming code"
+        },
+
+        {
+            name: "JSON Minifier",
+            description: "Reduce the size of JSON data.",
+            url: "json-minifier.html",
+            keywords: "developer compress data code"
+        },
+
+        {
+            name: "HTML Minifier",
+            description: "Reduce the size of HTML code.",
+            url: "html-minifier.html",
+            keywords: "developer compress markup"
+        },
+
+        {
+            name: "CSS Minifier",
+            description: "Minify CSS code.",
+            url: "css-minifier.html",
+            keywords: "developer compress stylesheet"
+        },
+
+        {
+            name: "Case Converter",
+            description: "Change text to uppercase or lowercase.",
+            url: "case-converter.html",
+            keywords: "text capital letters sentence title case"
+        },
+
+        {
+            name: "Text Reverser",
+            description: "Reverse text or the order of characters.",
+            url: "text-reverser.html",
+            keywords: "words letters reverse string"
+        },
+
+        {
+            name: "Remove Duplicate Lines",
+            description: "Remove repeated lines from text.",
+            url: "remove-duplicate-lines.html",
+            keywords: "text clean repeated remove duplicates"
+        },
+
+        {
+            name: "Image Compressor",
+            description: "Reduce image file size.",
+            url: "image-compressor.html",
+            keywords: "photo picture optimize reduce size"
+        },
+
+        {
+            name: "Image Resizer",
+            description: "Resize images to your preferred dimensions.",
+            url: "image-resizer.html",
+            keywords: "photo picture width height dimensions"
+        },
+
+        {
+            name: "Image Converter",
+            description: "Convert images between supported formats.",
+            url: "image-converter.html",
+            keywords: "photo picture jpg jpeg png webp format"
+        },
+
+        {
+            name: "Image Cropper",
+            description: "Crop images to the area you want.",
+            url: "image-cropper.html",
+            keywords: "photo picture cut trim crop"
+        },
+
+        {
+            name: "Base64 Image Converter",
+            description: "Convert images to Base64 and back.",
+            url: "base64-image-converter.html",
+            keywords: "image encode decode data uri"
+        }
+
+    ];
+
+
+    // Display search results.
+    
+        
+        // ========== DISPLAY RESULTS ==========
+    function displayResults(matches) {
+        searchResults.innerHTML = "";
+
+        if (matches.length === 0) {
+            const message = document.createElement("div");
+            message.className = "search-no-result";
+            message.textContent = "No matching tools found.";
+            searchResults.appendChild(message);
+        } else {
+            matches.forEach(function (tool) {
+                const link = document.createElement("a");
+                link.className = "search-result";
+                link.href = tool.url;
+
+                const title = document.createElement("strong");
+                title.textContent = tool.name;
+
+                const description = document.createElement("small");
+                description.textContent = tool.description;
+
+                link.appendChild(title);
+                link.appendChild(description);
+                searchResults.appendChild(link);
+            });
+        }
+
+        // Show the dropdown
+        searchResults.classList.add("show");
+        searchResults.style.display = "block";
+    }
+
+
+    function searchTools() {
+        const query = searchInput.value.trim().toLowerCase();
+
+        // Hide results if input is empty
+        if (query.length === 0) {
+            searchResults.innerHTML = "";
+            searchResults.classList.remove("show");
+            searchResults.style.display = "none";
+            return;
+        }
+
+        const searchWords = query.split(/\s+/);
+
+        // Score every tool
+        const scored = tools.map(function (tool) {
+            const name = tool.name.toLowerCase();
+            const description = tool.description.toLowerCase();
+            const keywords = tool.keywords.toLowerCase();
+            const searchableText = name + " " + description + " " + keywords;
+
+            // Must contain every typed word
+            const matchesAll = searchWords.every(function (word) {
+                return searchableText.includes(word);
+            });
+
+            if (!matchesAll) return null;
+
+            let score = 0;
+
+            // Highest priority: name starts with the full query
+            if (name.startsWith(query)) {
+                score += 100;
+            } else if (name.includes(query)) {
+                score += 60;
+            }
+
+            // Extra points for each word
+            searchWords.forEach(function (word) {
+                if (name.includes(word)) score += 20;
+                if (name.startsWith(word)) score += 15;
+                if (keywords.includes(word)) score += 8;
+                if (description.includes(word)) score += 4;
+            });
+
+            // Slight preference for shorter names
+            score += Math.max(0, 30 - name.length);
+
+            return { tool: tool, score: score };
+        }).filter(Boolean);
+
+        // Sort highest score first
+        scored.sort(function (a, b) {
+            return b.score - a.score;
+        });
+
+        const matches = scored.map(function (item) {
+            return item.tool;
+        });
+
+        displayResults(matches);
+    }
+
+
+    // ========== EVENT LISTENERS ==========
+
+    // Show results while typing
+    searchInput.addEventListener("input", searchTools);
+
+    // Search button click
+    searchButton.addEventListener("click", function () {
+        searchInput.focus();
+        searchTools();
+    });
+
+    // Enter → open first result | Escape → close
+    searchInput.addEventListener("keydown", function (event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            const firstResult = searchResults.querySelector("a");
+            if (firstResult) {
+                window.location.href = firstResult.href;
+            }
+        }
+
+        if (event.key === "Escape") {
+            searchResults.classList.remove("show");
+            searchResults.style.display = "none";
+        }
+    });
+
+    // Close when clicking outside
+    document.addEventListener("click", function (event) {
+        if (searchContainer && !searchContainer.contains(event.target)) {
+            searchResults.classList.remove("show");
+            searchResults.style.display = "none";
+        }
+    });
+
+    // Re-show results when focusing back on the input
+    searchInput.addEventListener("focus", function () {
+        if (searchInput.value.trim() !== "") {
+            searchTools();
+        }
+    });
+}
+
+initializeHeaderSearch();
+
 </script>
+
+        
+
+
+   
